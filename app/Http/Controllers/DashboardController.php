@@ -6,22 +6,22 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Session;
-use URL;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class DashboardController extends Controller
 {
     public function index(): View|RedirectResponse
     {
-        /*
-        if ( ! Auth::check()) {
+
+        if (! Auth::check()) {
             Session::put('url.intended', URL::full());
 
-            return redirect()->route('login')
-                             ->with('status', 'Please log in to view that page');
+            return redirect()->route('/')
+                ->with('status', 'Please log in to view that page');
         }
-        */
 
-        return view('dashboard');
+
+        return view('/');
     }
 }

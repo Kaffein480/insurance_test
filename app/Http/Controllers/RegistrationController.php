@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
 {
@@ -30,7 +30,9 @@ class RegistrationController extends Controller
         ]);
 
         return redirect()->route('login')
-                         ->with('status',
-                                'Registration successful, you can now log in');
+            ->with(
+                'status',
+                'Registration successful, you can now log in'
+            );
     }
 }

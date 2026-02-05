@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('total_biaya', 18, 4);
             $table->string('status')->nullable()->default(null);
             $table->timestamp('approved_at')->nullable()->default(null);
+            $table->unsignedBigInteger('polis_id');
             $table->timestamps();
         });
     }
