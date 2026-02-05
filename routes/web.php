@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PolisController;
+use App\Http\Controllers\OkupasiController;
 
 Route::get('/', function () {
     return view('home');
@@ -22,12 +23,24 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', [PolisController::class, 'getPolis'])
+    Route::get('/dashboard', [PolisController::class, 'getInvoice'])
         ->name('dashboard');
 
     Route::get('/create-polis', function () {
         return view('polis.create');
     })->name('polis.create')->middleware('auth');
 
+    Route::get('/update-okupasi', function () {
+        return view('okupasi.update');
+    })->name('okupasi.update')->middleware('auth');
+
+
+
     Route::post('/create-polis', [PolisController::class, 'createPolis']);
+    Route::get('/find-polis/{id}', [PolisController::class, 'findPolis']);
+
+    Route::get('/okupasi', [OkupasiController::class, 'getOkupasi']);
+    Route::post('/update-okupasi', [OkupasiController::class, 'updateOkupasi']);
+    // Route::post('/okupasi/{id}', [OkupasiController::class, 'updateOkupasi']);
+    Route::delete('/okupasi/{id}', [OkupasiController::class, 'deleteOkupasi']);
 });

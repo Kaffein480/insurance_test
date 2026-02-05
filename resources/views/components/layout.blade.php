@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Example</title>
+    <title>Insurance</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 
@@ -12,11 +12,7 @@
     <div class="notice">{{ session('status') }}</div>
     @endif
 
-    <body class="d-flex flex-column min-vh-100">
-        <main class="flex-fill">
-            {{ $slot }}
-        </main>
-    </body>
+    {{ $slot }}
 
 </body>
 

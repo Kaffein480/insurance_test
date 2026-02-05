@@ -55,7 +55,15 @@
     </div>
 
     <script>
-        fetch('/api/okupasi')
+        fetch('/okupasi', {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+            })
             .then(res => res.json())
             .then(data => {
                 if (!data.error && data.data.length) {

@@ -10,13 +10,20 @@ class OkupasiController extends Controller
 
     public function getOkupasi()
     {
-        $data = DataOkupasi::latest()->get();
+        $okupasi = DataOkupasi::latest()->get();
 
         return response()->json([
             'error' => false,
             'code'  => 200,
-            'data'  => $data
+            'data'  => $okupasi
         ]);
+    }
+
+    public function findOkupasi($id)
+    {
+        $okupasi = DataOkupasi::find($id);
+
+        return view('okupasi.update', compact('okupasi'));
     }
 
     public function createOkupasi(Request $request)
@@ -36,9 +43,17 @@ class OkupasiController extends Controller
         ], 201);
     }
 
-    public function updateOkupasi(Request $request, $id)
+    public function updateOkupasi(Request $request)
     {
-        $okupasi = DataOkupasi::find($id);
+
+        $validated = $request->validate([
+            'id' => 'required|integer',
+            'nama_okupasi' => 'nullable|string',
+            'premi'        => 'nullable|numeric|min:0'
+        ]);
+
+
+        $okupasi = DataOkupasi::find($request->id);
 
         if (!$okupasi) {
             return response()->json([
@@ -46,11 +61,6 @@ class OkupasiController extends Controller
                 'message' => 'Data not found'
             ], 404);
         }
-
-        $validated = $request->validate([
-            'nama_okupasi' => 'nullable|string',
-            'premi'        => 'nullable|numeric|min:0'
-        ]);
 
         $okupasi->update($validated);
 
@@ -61,6 +71,7 @@ class OkupasiController extends Controller
             'data'    => $okupasi
         ]);
     }
+
 
     public function deleteOkupasi($id)
     {

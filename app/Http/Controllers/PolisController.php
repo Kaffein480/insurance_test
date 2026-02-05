@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataInvoice;
 use App\Models\DataPolis;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,9 +43,19 @@ class PolisController extends Controller
     }
 
 
-    public function getPolis()
+    public function getInvoice()
     {
-        $invoices = DataInvoice::with('polis')->latest()->get();
+        $user = Auth::user();
+
+        if ($user->isAdmin()) {
+            $invoices = DataInvoice::with('polis')->get();
+        } else {
+            $invoices = DataInvoice::with('polis')
+                ->whereHas('polis', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->get();
+        }
 
         return view('dashboard', compact('invoices'));
     }

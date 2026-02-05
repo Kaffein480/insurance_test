@@ -26,7 +26,8 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             return redirect()->intended('/dashboard')
-                ->with('status', 'Login successful');
+                ->with('status', 'Login successful')
+                ->with('role', Auth::user()->role_id);
         }
 
         return back()->withInput()
