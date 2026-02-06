@@ -5,7 +5,13 @@
         <h1>Dashboard</h1>
         <div style="max-width: 900px; margin: 20px auto;">
 
-            <span>Halo {{ Auth::user()->name }}.</span>
+            <span style="margin-right: 10px;">Halo {{ Auth::user()->name }}.</span>
+
+            <form action="{{ route('profile.update') }}" method="get" style="display: inline;">
+                <button type="submit" class="btn btn-sm btn-primary px-3 py-1">
+                    profile
+                </button>
+            </form>
 
             <button
                 type="button"
@@ -86,7 +92,7 @@
 
                                 {{-- Aksi --}}
                                 <td>
-                                    <form action="{{ route('polis.create') }}" method="get" style="display: inline;">
+                                    <form action="{{ route('invoice.invoice', $invoice->id) }}" method="get" style="display: inline;">
                                         <button type="submit" class="btn btn-sm btn-primary px-3 py-1">
                                             Lihat Rincian
                                         </button>

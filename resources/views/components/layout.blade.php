@@ -13,8 +13,6 @@
     @endif
 
     @if (!request()->is('dashboard*')
-    && !request()->is('login')
-    && !request()->is('register')
     && !request()->is('/'))
     <a href="{{ url()->previous() }}"
         style="

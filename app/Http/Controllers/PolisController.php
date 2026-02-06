@@ -168,4 +168,21 @@ class PolisController extends Controller
             'data' => $getData
         ], 200);
     }
+
+    public function findInvoice($id)
+    {
+        $invoice = DataInvoice::with('polis')->find($id);
+
+        if (!$invoice) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Invoice not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'error' => false,
+            'data' => $invoice
+        ]);
+    }
 }
