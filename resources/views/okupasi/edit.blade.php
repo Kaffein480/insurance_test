@@ -97,7 +97,34 @@
 
 
         // edit inline
+        let editingRowId = null;
+        let editingRowData = null
+
         function editRow(id, nama, premi) {
+
+            // restore previous edited row ONLY
+            if (editingRowId !== null && editingRowId !== id) {
+                const oldRow = document.getElementById(`row-${editingRowId}`);
+
+                oldRow.innerHTML = `
+            <td>${editingRowData.nama}</td>
+            <td>${editingRowData.premi}</td>
+            <td>
+                <button onclick="editRow(${editingRowId}, '${editingRowData.nama}', ${editingRowData.premi})"
+                    class="btn btn-warning btn-sm">Edit</button>
+                <button onclick="deleteRow(${editingRowId})"
+                    class="btn btn-danger btn-sm">Delete</button>
+            </td>
+        `;
+            }
+
+            // save current row data
+            editingRowId = id;
+            editingRowData = {
+                nama,
+                premi
+            };
+
             const row = document.getElementById(`row-${id}`);
 
             row.innerHTML = `
@@ -109,9 +136,30 @@
         </td>
         <td>
             <button onclick="updateRow(${id})" class="btn btn-success btn-sm">Save</button>
-            <button onclick="loadOkupasi()" class="btn btn-secondary btn-sm">Cancel</button>
+            <button onclick="cancelEdit()" class="btn btn-secondary btn-sm">Cancel</button>
         </td>
     `;
+        }
+
+
+        function cancelEdit() {
+            if (editingRowId === null) return;
+
+            const row = document.getElementById(`row-${editingRowId}`);
+
+            row.innerHTML = `
+        <td>${editingRowData.nama}</td>
+        <td>${editingRowData.premi}</td>
+        <td>
+            <button onclick="editRow(${editingRowId}, '${editingRowData.nama}', ${editingRowData.premi})"
+                class="btn btn-warning btn-sm">Edit</button>
+            <button onclick="deleteRow(${editingRowId})"
+                class="btn btn-danger btn-sm">Delete</button>
+        </td>
+    `;
+
+            editingRowId = null;
+            editingRowData = null;
         }
 
 
