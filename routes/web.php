@@ -30,17 +30,18 @@ Route::middleware(['auth'])->group(function () {
         return view('polis.create');
     })->name('polis.create')->middleware('auth');
 
-    Route::get('/update-okupasi', function () {
-        return view('okupasi.update');
-    })->name('okupasi.update')->middleware('auth');
+    Route::get('/edit-okupasi', function () {
+        return view('okupasi.edit');
+    })->name('okupasi.edit')->middleware('auth');
 
 
 
     Route::post('/create-polis', [PolisController::class, 'createPolis']);
     Route::get('/find-polis/{id}', [PolisController::class, 'findPolis']);
 
+
     Route::get('/okupasi', [OkupasiController::class, 'getOkupasi']);
-    Route::post('/update-okupasi', [OkupasiController::class, 'updateOkupasi']);
-    // Route::post('/okupasi/{id}', [OkupasiController::class, 'updateOkupasi']);
+    Route::post('/create-okupasi', [OkupasiController::class, 'createOkupasi']);
+    Route::post('/update-okupasi/{id}', [OkupasiController::class, 'updateOkupasi']);
     Route::delete('/okupasi/{id}', [OkupasiController::class, 'deleteOkupasi']);
 });

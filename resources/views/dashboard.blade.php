@@ -26,7 +26,7 @@
 
         @if (Auth::user()->isAdmin())
         <div class="mt-3 mb-3 text-start">
-            <form action="{{ route('okupasi.update') }}" method="get" style="display: inline;">
+            <form action="{{ route('okupasi.edit') }}" method="get" style="display: inline;">
                 <button type="submit" class="btn btn-sm btn-primary px-3 py-1">
                     Update Okupasi
                 </button>

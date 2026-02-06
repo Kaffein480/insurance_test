@@ -10,7 +10,7 @@ class OkupasiController extends Controller
 
     public function getOkupasi()
     {
-        $okupasi = DataOkupasi::latest()->get();
+        $okupasi = DataOkupasi::all();
 
         return response()->json([
             'error' => false,
@@ -43,17 +43,16 @@ class OkupasiController extends Controller
         ], 201);
     }
 
-    public function updateOkupasi(Request $request)
+    public function updateOkupasi(Request $request, $id)
     {
 
         $validated = $request->validate([
-            'id' => 'required|integer',
             'nama_okupasi' => 'nullable|string',
             'premi'        => 'nullable|numeric|min:0'
         ]);
 
 
-        $okupasi = DataOkupasi::find($request->id);
+        $okupasi = DataOkupasi::find($id);
 
         if (!$okupasi) {
             return response()->json([
