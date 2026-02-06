@@ -3,7 +3,7 @@
 
 <head>
     <title>Insurance</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple-v1.css">
 </head>
 
 <body>

@@ -2,59 +2,98 @@
     <div class="container mt-4">
         <h1>Create Polis</h1>
 
+        <style>
+            @media (max-width: 768px) {
+                .two-column {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+
         <form id="polisForm">
             @csrf
 
-            <label>Okupasi</label>
-            <select id="okupasi" name="okupasi" required>
-                <option value="">-- Pilih Okupasi --</option>
-            </select>
-            <br><br>
+            <div class="" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px;">
 
-            <label>Konstruksi</label>
-            <select name="konstruksi" required>
-                <option value="">-- Pilih Konstruksi --</option>
-                <option value="kelas 1">Kelas 1</option>
-                <option value="kelas 2">Kelas 2</option>
-                <option value="kelas 3">Kelas 3</option>
-            </select>
-            <br><br>
+                <!-- Kiri -->
+                <div>
+                    <div>
+                        <label style="display:block; text-align:left; margin-top:0;">Okupasi</label>
+                        <select id="okupasi" name="okupasi" required>
+                            <option value="">-- Pilih Okupasi --</option>
+                        </select>
+                    </div>
 
-            <label>Jangka Waktu (1-10)</label>
-            <input type="number" name="jangka_waktu" min="1" max="10" required>
-            <br><br>
 
-            <label>Harga Bangunan</label>
-            <input type="number" name="harga_bangunan" min="0" required>
-            <br><br>
+                    <label style="display:block; text-align:left; margin-top:0;">Konstruksi</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="konstruksi" value="kelas 1" required>
+                            Kelas 1
+                        </label>
+                    </div>
 
-            <label>Kota / Kabupaten (gunakan "/")</label>
-            <input type="text" name="kota_kabupaten" required>
-            <br><br>
+                    <div>
+                        <label>
+                            <input type="radio" name="konstruksi" value="kelas 2">
+                            Kelas 2
+                        </label>
+                    </div>
 
-            <label>Alamat</label>
-            <textarea name="alamat" required></textarea>
-            <br><br>
+                    <div>
+                        <label>
+                            <input type="radio" name="konstruksi" value="kelas 3">
+                            Kelas 3
+                        </label>
+                    </div>
 
-            <label>Provinsi</label>
-            <input type="text" name="provinsi" required>
-            <br><br>
+                    <div><label style="display:block; text-align:left; margin-top:0;">Jangka Waktu (1-10)</label>
+                        <input type="number" name="jangka_waktu" min="1" max="10" required>
+                    </div>
 
-            <label>Daerah</label>
-            <input type="text" name="daerah" required>
-            <br><br>
+                    <div><label style="display:block; text-align:left; margin-top:0;">Harga Bangunan</label>
+                        <input type="number" name="harga_bangunan" min="0" required>
+                    </div>
 
-            <label>
-                <input type="checkbox" name="gempa" value="1"> Termasuk Gempa
-            </label>
-            <br><br>
 
-            <button type="submit" class="mb-5">Submit</button>
+                </div>
+
+                <!-- RIGHT COLUMN -->
+                <div>
+                    <div>
+                        <label style="display:block; text-align:left; margin-top:0;">Kota / Kabupaten</label>
+                        <input style="margin-bottom: 12px;" type="text" name="kota_kabupaten" required>
+                    </div>
+
+                    <div><label style="display:block; text-align:left; margin-top:0;">Alamat</label>
+                        <textarea style="margin-bottom: 12px;" name="alamat" required></textarea>
+                    </div>
+
+                    <div><label style="display:block; text-align:left; margin-top:0;">Provinsi</label>
+                        <input type="text" name="provinsi" required>
+                    </div>
+
+                    <div><label style="display:block; text-align:left; margin-top:0;">Daerah</label>
+                        <input type="text" name="daerah" required>
+                    </div>
+
+
+                    <div><label>
+                            <input type="checkbox" name="gempa" value="1">
+                            Termasuk Gempa
+                        </label></div>
+
+                </div>
+
+            </div>
+
+            <button type="submit">Submit</button>
 
         </form>
     </div>
 
     <script>
+        // getInvoice
         fetch('/okupasi', {
                 method: 'GET',
                 credentials: 'same-origin',
@@ -79,7 +118,7 @@
                 }
             });
 
-
+        // createPolis
         document.getElementById('polisForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
