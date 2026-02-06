@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/create-polis', [PolisController::class, 'createPolis']);
     Route::get('/find-polis/{id}', [PolisController::class, 'findPolis']);
     Route::get('/find-invoice/{id}', [PolisController::class, 'findInvoice']);
+    Route::post('/update-status-invoice/{id}', [PolisController::class, 'updateInvoiceStatus']);
 
     Route::get('/okupasi', [OkupasiController::class, 'getOkupasi']);
     Route::post('/create-okupasi', [OkupasiController::class, 'createOkupasi']);

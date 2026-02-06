@@ -69,13 +69,17 @@
                             @forelse($invoices as $invoice)
                             <tr>
                                 {{-- No Polis --}}
-                                <td>{{ $invoice->polis->nomor_polis ?? '-' }}</td>
+                                <td style="font-size: 16px;">
+                                    {{ $invoice->polis->nomor_polis ?? '-' }}
+                                </td>
 
                                 {{-- Jenis Penanggungan --}}
                                 <td>{{ $invoice->polis->jenis_penanggungan ?? '-' }}</td>
 
                                 {{-- No Invoice --}}
-                                <td>{{ $invoice->nomor_invoice }}</td>
+                                <td style="font-size: 16px;">
+                                    {{ $invoice->nomor_invoice }}
+                                </td>
 
                                 {{-- Status --}}
                                 <td>

@@ -171,7 +171,7 @@ class PolisController extends Controller
 
     public function findInvoice($id)
     {
-        $invoice = DataInvoice::with('polis')->find($id);
+        $invoice = DataInvoice::with('polis')->latest()->find($id);
 
         if (!$invoice) {
             return response()->json([
@@ -184,5 +184,73 @@ class PolisController extends Controller
             'error' => false,
             'data' => $invoice
         ]);
+    }
+
+    function updateInvoiceStatus(Request $request, $id)
+    {
+
+        $request->validate([
+            'update_status' => 'required|string'
+        ]);
+
+        $getInvoice = DataInvoice::find($id);
+        if (!$getInvoice) {
+            return response()->json([
+                'error' => true,
+                'code' => 500,
+                'message' => 'data not found',
+            ], 500);
+        };
+
+        if ($request->update_status == "Approved") {
+            $nomorPolis = $this->generatedNomorPolis();
+
+
+            $updateInvoice = DataInvoice::find($id)
+                ->update([
+                    'status' => "Sudah Dibayar",
+                    'approved_at' => now(),
+                    'updated_at' => now()
+                ]);
+
+            if (!$updateInvoice) {
+                return response()->json([
+                    'error' => true,
+                    'code' => 500,
+                    'message' => 'Failed to update invoice or polis.',
+                ], 500);
+            }
+
+            $updatePolis = DataPolis::find($getInvoice->polis_id)
+                ->update([
+                    'nomor_polis' => $nomorPolis
+                ]);
+            if (!$updatePolis) {
+                return response()->json([
+                    'error' => true,
+                    'code' => 500,
+                    'message' => 'Failed to update invoice or polis.',
+                ], 500);
+            }
+        } else if ($request->update_status == "Rejected") {
+            $updateInvoice = DataInvoice::find($id)
+                ->update([
+                    'status' => "Belum Dibayar",
+                    'updated_at' => now()
+                ]);
+        } else {
+            return response()->json([
+                'error' => true,
+                'code' => 500,
+                'message' => 'invalid status',
+            ], 500);
+        }
+
+        return response()->json([
+            'error' => false,
+            'code' => 200,
+            'message' => 'success update',
+            'data' => $getInvoice->fresh(),
+        ], 200);
     }
 }

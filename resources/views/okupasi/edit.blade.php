@@ -169,8 +169,9 @@
             fetch(`/update-okupasi/${id}`, {
                     method: 'POST',
                     headers: {
+                        'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     body: JSON.stringify({
                         nama_okupasi: document.getElementById(`edit-nama-${id}`).value,
