@@ -58,16 +58,25 @@ class OkupasiController extends Controller
         if (!$okupasi) {
             return response()->json([
                 'error' => true,
-                'message' => 'Data not found'
+                'message' => 'data not found'
             ], 404);
         }
+
+        $exist = DataOkupasi::find($request->nama_okupasi);
+        if ($exist) {
+            return response()->json([
+                'error' => true,
+                'message' => ' okupasi name already existed'
+            ], 404);
+        }
+
 
         $okupasi->update($validated);
 
         return response()->json([
             'error'   => false,
             'code'    => 200,
-            'message' => 'Success update okupasi',
+            'message' => 'success update okupasi',
             'data'    => $okupasi
         ]);
     }
