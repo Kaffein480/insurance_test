@@ -35,6 +35,14 @@ class OkupasiController extends Controller
 
         $data = DataOkupasi::create($validated);
 
+        if (!$data) {
+            return response()->json([
+                'error'   => true,
+                'code'    => 500,
+                'message' => 'Failed to create okupasi'
+            ], 500);
+        }
+
         return response()->json([
             'error'   => false,
             'code'    => 201,

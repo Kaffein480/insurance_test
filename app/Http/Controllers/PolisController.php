@@ -96,6 +96,14 @@ class PolisController extends Controller
                 'user_id'          => Auth::id(),
             ]);
 
+            if (!$polis) {
+                return response()->json([
+                    'error'   => true,
+                    'code'    => 500,
+                    'message' => 'Failed to create polis'
+                ], 500);
+            }
+
             $nomorInvoice = $this->generateNomorInvoice();
 
             $premiDasar = ($validated['harga_bangunan'] * $validated['premi'] / 1000)
@@ -111,6 +119,14 @@ class PolisController extends Controller
                 'total_biaya'   => $totalBiaya,
                 'status'        => 'pending'
             ]);
+
+            if (!$invoice) {
+                return response()->json([
+                    'error'   => true,
+                    'code'    => 500,
+                    'message' => 'Failed to create polis'
+                ], 500);
+            }
 
             DB::commit();
 

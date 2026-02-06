@@ -60,9 +60,12 @@
 
                 <!-- RIGHT COLUMN -->
                 <div>
-                    <div>
-                        <label style="display:block; text-align:left; margin-top:0;">Kota / Kabupaten</label>
-                        <input style="margin-bottom: 12px;" type="text" name="kota_kabupaten" required>
+                    <div style="display: flex; flex-direction: column;">
+                        <label style=" display:block; text-align:left; margin-top:0;">Kota / Kabupaten</label>
+                        <input style="margin-bottom: 0px;" type="text" name="kota_kabupaten" required placeholder="Kota / Kabupaten">
+                        <small style="color: gray; font-size: 12px; margin-bottom: 8px;">
+                            Format harus: Kota / Kabupaten (contoh: Jakarta / Selatan)
+                        </small>
                     </div>
 
                     <div><label style="display:block; text-align:left; margin-top:0;">Alamat</label>
@@ -125,6 +128,12 @@
             const form = e.target;
             const kotaKabupaten = form.kota_kabupaten.value.trim();
             const parts = kotaKabupaten.split('/').map(p => p.trim());
+            if (parts.length !== 2 || !parts[0] || !parts[1]) {
+                alert('Format harus: Kota / Kabupaten (contoh: Jakarta / Selatan)');
+                return;
+            }
+            const kota = parts[0];
+            const kabupaten = parts[1];
 
             const selectedOption = form.okupasi.options[form.okupasi.selectedIndex];
             const premi = parseFloat(selectedOption.dataset.premi);
@@ -157,6 +166,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if (!data.error) {
+                        alert(data.message);
                         window.location.href = '/dashboard';
                     } else {
                         alert('Gagal membuat polis');
