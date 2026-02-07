@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,7 +49,15 @@ class UserController extends Controller
                 'name'  => 'string|max:255',
                 'email' => 'email|max:255',
             ]);
-            
+
+            $emailExist = User::where('email', $request->email);
+            if ($emailExist) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Email sudah digunakan'
+                ], 409);
+            }
+
             $user->name  = $validated['name'];
             $user->email = $validated['email'];
 
