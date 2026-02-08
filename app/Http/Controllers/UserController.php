@@ -50,7 +50,9 @@ class UserController extends Controller
                 'email' => 'email|max:255',
             ]);
 
-            $emailExist = User::where('email', $request->email);
+            $emailExist = User::where('email', $request->email)
+                ->where('id', '!=', $user->id)
+                ->first();;
             if ($emailExist) {
                 return response()->json([
                     'error' => true,

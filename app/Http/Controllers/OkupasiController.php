@@ -33,6 +33,14 @@ class OkupasiController extends Controller
             'premi'        => 'required|numeric|min:0'
         ]);
 
+        $exist = DataOkupasi::where("nama_okupasi", $request->nama_okupasi)->first();
+        if ($exist) {
+            return response()->json([
+                'error' => true,
+                'message' => ' okupasi name already existed'
+            ], 404);
+        }
+
         $data = DataOkupasi::create($validated);
 
         if (!$data) {
@@ -61,7 +69,6 @@ class OkupasiController extends Controller
 
 
         $okupasi = DataOkupasi::find($id);
-
         if (!$okupasi) {
             return response()->json([
                 'error' => true,
@@ -69,14 +76,15 @@ class OkupasiController extends Controller
             ], 404);
         }
 
-        $exist = DataOkupasi::find($request->nama_okupasi);
+        $exist = DataOkupasi::where('nama_okupasi', $request->nama_okupasi)
+            ->where('id', '!=', $id)
+            ->first();
         if ($exist) {
             return response()->json([
                 'error' => true,
                 'message' => ' okupasi name already existed'
             ], 404);
         }
-
 
         $okupasi->update($validated);
 

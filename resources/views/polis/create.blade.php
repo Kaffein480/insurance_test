@@ -63,9 +63,6 @@
                     <div style="display: flex; flex-direction: column;">
                         <label style=" display:block; text-align:left; margin-top:0;">Kota / Kabupaten</label>
                         <input style="margin-bottom: 0px;" type="text" name="kota_kabupaten" required placeholder="Kota / Kabupaten">
-                        <small style="color: gray; font-size: 12px; margin-bottom: 8px;">
-                            Format harus: Kota / Kabupaten (contoh: Jakarta / Selatan)
-                        </small>
                     </div>
 
                     <div><label style="display:block; text-align:left; margin-top:0;">Alamat</label>
@@ -126,14 +123,7 @@
             e.preventDefault();
 
             const form = e.target;
-            const kotaKabupaten = form.kota_kabupaten.value.trim();
-            const parts = kotaKabupaten.split('/').map(p => p.trim());
-            if (parts.length !== 2 || !parts[0] || !parts[1]) {
-                alert('Format harus: Kota / Kabupaten (contoh: Jakarta / Selatan)');
-                return;
-            }
-            const kota = parts[0];
-            const kabupaten = parts[1];
+            const kotaKabupaten = form.kota_kabupaten.value;
 
             const selectedOption = form.okupasi.options[form.okupasi.selectedIndex];
             const premi = parseFloat(selectedOption.dataset.premi);
@@ -145,8 +135,8 @@
                 konstruksi: form.konstruksi.value,
                 alamat: form.alamat.value,
                 provinsi: form.provinsi.value,
-                kota: parts[0] || '',
-                kabupaten: parts[1] || '',
+                kotakabupaten: kotaKabupaten,
+
                 daerah: form.daerah.value,
                 gempa: form.gempa.checked ? 1 : 0,
                 jenis_penanggungan: 'Asuransi kebakaran',

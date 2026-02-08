@@ -64,15 +64,8 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-
-                    if (!data.error) {
-                        messageBox.style.color = "green";
-                        messageBox.innerText = data.message;
-                    } else {
-                        messageBox.style.color = "red";
-                        messageBox.innerText = data.message;
-                    }
-
+                    alert(data.message);
+                    window.location.reload();
                 })
                 .catch(err => {
                     messageBox.style.color = "red";

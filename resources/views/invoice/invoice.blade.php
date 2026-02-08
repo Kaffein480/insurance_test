@@ -22,7 +22,7 @@
         <p><strong>Alamat:</strong> <span id="alamat">Loading...</span></p>
     </div>
 
-    <div style="text-align: right;">
+    <div id="actionButtons" style="text-align: right;">
         @if (Auth::user()->isAdmin())
         <button
             type="button"

@@ -45,6 +45,15 @@
         <div>
             <button type=" submit">Register</button>
         </div>
+
     </form>
+
+    @if(session('success'))
+    <script>
+        alert("{{ session('success') }}");
+        window.location.href = "{{ route('login') }}";
+    </script>
+    @endif
+
 
 </x-layout>

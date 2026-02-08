@@ -10,15 +10,17 @@
             <input type="email" name="email" id="email" value="{{ old('email') }}">
         </div>
 
+        @error('email')
+        <span role="alert">{{ $message }}</span>
+        @enderror
+
         <div> <label for="password" style="display:block; text-align:left; margin-top:0;">Password</label>
             <input type="password" name="password" id="password">
         </div>
 
-        <div><label style="display:block; text-align:left; margin-top:0;">
-                <input type="checkbox"
-                    name="remember" {{ old('remember') == 'on' ? ' checked' : ''}}>
-                remember me
-            </label></div>
+        @error('password')
+        <span role="alert">{{ $message }}</span>
+        @enderror
 
         <div><a href="{{ route('register') }}">Register</a>
 

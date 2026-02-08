@@ -21,8 +21,7 @@ return new class extends Migration
             $table->string('konstruksi');
             $table->string('alamat');
             $table->string('provinsi');
-            $table->string('kota');
-            $table->string('kabupaten');
+            $table->string('kotakabupaten');
             $table->string('daerah');
             $table->boolean('gempa')->default(false);
             $table->unsignedBigInteger('user_id');

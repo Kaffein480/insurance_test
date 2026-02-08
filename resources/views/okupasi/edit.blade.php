@@ -166,6 +166,23 @@
         // updateOkupasi
         function updateRow(id) {
 
+            const namaInput = document.getElementById(`edit-nama-${id}`);
+            const premiInput = document.getElementById(`edit-premi-${id}`);
+
+            const nama = namaInput.value.trim();
+            const premi = premiInput.value.trim();
+
+            // Validation
+            if (nama === "" || premi === "") {
+                alert("Nama dan Premi tidak boleh kosong!");
+                return;
+            }
+
+            if (isNaN(premi)) {
+                alert("Premi harus berupa angka yang valid!");
+                return;
+            }
+
             fetch(`/update-okupasi/${id}`, {
                     method: 'POST',
                     headers: {
@@ -175,7 +192,7 @@
                     },
                     body: JSON.stringify({
                         nama_okupasi: document.getElementById(`edit-nama-${id}`).value,
-                        premi: document.getElementById(`edit-premi-${id}`).value
+                        premi: document.getElementById(`edit-premi-${id}`).value,
                     })
                 })
                 .then(res => res.json())

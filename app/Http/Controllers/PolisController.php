@@ -70,8 +70,7 @@ class PolisController extends Controller
             'konstruksi'     => 'required|string',
             'alamat'         => 'required|string',
             'provinsi'       => 'required|string',
-            'kota'           => 'required|string',
-            'kabupaten'      => 'required|string',
+            'kotakabupaten'  => 'required|string',
             'daerah'         => 'required|string',
             'gempa'          => 'nullable|boolean',
             'premi'          => 'required|numeric|min:0'
@@ -89,8 +88,7 @@ class PolisController extends Controller
                 'konstruksi'       => $validated['konstruksi'],
                 'alamat'           => $validated['alamat'],
                 'provinsi'         => $validated['provinsi'],
-                'kota'             => $validated['kota'],
-                'kabupaten'        => $validated['kabupaten'],
+                'kotakabupaten'    => $validated['kotakabupaten'],
                 'daerah'           => $validated['daerah'],
                 'gempa'            => $request->boolean('gempa'),
                 'user_id'          => Auth::id(),
@@ -249,7 +247,7 @@ class PolisController extends Controller
         return response()->json([
             'error' => false,
             'code' => 200,
-            'message' => 'success update',
+            'message' => "success update {$request->update_status}",
             'data' => $getInvoice->fresh(),
         ], 200);
     }

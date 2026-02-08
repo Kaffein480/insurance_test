@@ -9,7 +9,18 @@
 <body>
 
     @if (session('status'))
-    <div class="notice">{{ session('status') }}</div>
+    <div style="
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin: 15px 0;
+        font-size: 14px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    ">
+        {{ session('status') }}
+    </div>
     @endif
 
     @if (!request()->is('dashboard*')

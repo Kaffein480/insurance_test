@@ -23,16 +23,21 @@ class RegistrationController extends Controller
             'password' => 'required|string|min:6|confirmed'
         ]);
 
+        $emailExist = User::where('email', $request->email)->exists();
+
+        if ($emailExist) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['email' => 'Email sudah digunakan']);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('login')
-            ->with(
-                'status',
-                'Registration successful, you can now log in'
-            );
+        return redirect()->route('register')
+            ->with('success', 'Registration successful, you can now log in');
     }
 }
